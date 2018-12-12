@@ -49,7 +49,6 @@ public class PictureTester
     motorcycle.mirrorHorizontalBotToTop();
     motorcycle.explore();
   }
-
   
   public static void testMirrorDiagonal()
   {
@@ -92,6 +91,26 @@ public class PictureTester
     canvas.explore();
   }
   
+  public static void testCopy()
+  {
+    Picture canvas = new Picture("640x480.jpg");
+    canvas.createFragmentCollage();
+    canvas.explore();
+  }
+
+  public static void testMyCollage()
+  {
+    Picture canvas = new Picture("640x480.jpg");
+    canvas.createMyCollage();
+    canvas.explore();
+  }
+
+  public static void testFindMark()
+  {
+    Picture mark = new Picture("blue-mark.jpg");
+    mark.explore();
+  }
+
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
@@ -121,9 +140,11 @@ public class PictureTester
     //testMirrorDiagonal();
     //testMirrorTemple();
     //testMirrorArms();
-    testMirrorGull();
+    //testMirrorGull();
     //testCollage();
     //testCopy();
+    testMyCollage();
+    //testFindMark();
     //testEdgeDetection();
     //testEdgeDetection2();
     //testChromakey();

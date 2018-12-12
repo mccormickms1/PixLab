@@ -95,6 +95,24 @@ public class Picture extends SimplePicture {
 		}
 	}
 
+	public void zeroRed() {
+		Pixel[][] pixels = this.getPixels2D();
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				pixelObj.setRed(0);
+			}
+		}
+	}
+
+	public void zeroGreen() {
+		Pixel[][] pixels = this.getPixels2D();
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				pixelObj.setGreen(0);
+			}
+		}
+	}
+
 	/**
 	 * Method that mirrors the picture around a vertical mirror in the center of
 	 * the picture from left to right
@@ -108,7 +126,7 @@ public class Picture extends SimplePicture {
 			for (int col = 0; col < width / 2; col++) {
 				rightPixel = pixels[row][col];
 				leftPixel = pixels[row][width - 1 - col];
-				rightPixel.setColor(leftPixel.getColor());
+				leftPixel.setColor(rightPixel.getColor());
 			}
 		}
 	}
@@ -122,7 +140,7 @@ public class Picture extends SimplePicture {
 			for (int col = 0; col < width / 2; col++) {
 				rightPixel = pixels[row][col];
 				leftPixel = pixels[row][width - 1 - col];
-				leftPixel.setColor(rightPixel.getColor());
+				rightPixel.setColor(leftPixel.getColor());
 			}
 		}
 	}
@@ -255,6 +273,24 @@ public class Picture extends SimplePicture {
 		}
 	}
 
+	public void copySlice(Picture fromPic, int startRow, int startCol) {
+		Pixel fromPixel = null;
+		Pixel toPixel = null;
+		Pixel[][] toPixels = this.getPixels2D();
+		Pixel[][] fromPixels = fromPic.getPixels2D();
+		int endRow = 305;
+		int endCol = 380;
+		for (int fromRow = 160, toRow = startRow; fromRow < endRow
+				&& toRow < toPixels.length; fromRow++, toRow++) {
+			for (int fromCol = 280, toCol = startCol; fromCol < endCol
+					&& toCol < toPixels[0].length; fromCol++, toCol++) {
+				fromPixel = fromPixels[fromRow][fromCol];
+				toPixel = toPixels[toRow][toCol];
+				toPixel.setColor(fromPixel.getColor());
+			}
+		}
+	}
+
 	/** Method to create a collage of several pictures */
 	public void createCollage() {
 		Picture flower1 = new Picture("flower1.jpg");
@@ -269,6 +305,39 @@ public class Picture extends SimplePicture {
 		this.copy(flower2, 500, 0);
 		this.mirrorVertical();
 		this.write("collage.jpg");
+	}
+
+	public void createFragmentCollage() {
+		Picture flower1 = new Picture("flower1.jpg");
+		Picture flower2 = new Picture("flower2.jpg");
+		this.copySlice(flower1, 0, 0);
+		this.copySlice(flower2, 100, 0);
+		this.copySlice(flower1, 200, 0);
+		Picture flowerNoBlue = new Picture(flower2);
+		flowerNoBlue.zeroBlue();
+		this.copySlice(flowerNoBlue, 300, 0);
+		this.copySlice(flower1, 400, 0);
+		this.copySlice(flower2, 500, 0);
+		this.mirrorVertical();
+		this.write("collage.jpg");
+	}
+
+	public void createMyCollage() {
+		Picture blueMark = new Picture("blue-mark.jpg");
+		Picture noRedMark = new Picture(blueMark);
+		noRedMark.zeroRed();
+		Picture noBlueMark = new Picture(blueMark);
+		noBlueMark.zeroBlue();
+		Picture noGreenMark = new Picture(blueMark);
+		noGreenMark.zeroGreen();
+		this.copySlice(noRedMark, 20, 20);
+		this.copySlice(noBlueMark, 20, 175);
+		this.copySlice(noBlueMark, 170, 20);
+		this.copySlice(noGreenMark, 170, 175);
+		this.copySlice(noGreenMark, 320, 20);
+		this.copySlice(noRedMark, 320, 175);
+		this.mirrorVertical();
+		this.write("my-collage.jpg");
 	}
 
 	/**
