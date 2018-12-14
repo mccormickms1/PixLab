@@ -114,11 +114,18 @@ public class PictureTester
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
-    Picture swan = new Picture("swan.jpg");
-    swan.edgeDetection(10);
-    swan.explore();
+    Picture mike = new Picture("wall.jpg");
+    mike.edgeDetection(30);
+    mike.explore();
   }
   
+  public static void testEdgeDetection2()
+  {
+    Picture mike = new Picture("wall.jpg");
+    mike.edgeDetection2();
+    mike.explore();
+  }
+
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -143,10 +150,10 @@ public class PictureTester
     //testMirrorGull();
     //testCollage();
     //testCopy();
-    testMyCollage();
+    //testMyCollage();
     //testFindMark();
-    //testEdgeDetection();
-    //testEdgeDetection2();
+    testEdgeDetection();
+    testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
